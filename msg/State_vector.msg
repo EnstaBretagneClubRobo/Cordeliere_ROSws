@@ -1,2 +1,0 @@
-geometry_msgs/Twist state
-geometry_msgs/Twist p_state

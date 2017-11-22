@@ -1,2 +1,0 @@
-geometry_msgs/Point Speed
-geometry_msgs/Point Position
