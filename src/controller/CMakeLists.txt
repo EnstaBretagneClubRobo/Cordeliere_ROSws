@@ -10,6 +10,7 @@ project(controller)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  msgs_pkg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES controller
-#  CATKIN_DEPENDS roscpp rospy
+  CATKIN_DEPENDS roscpp rospy msgs_pkg
 #  DEPENDS system_lib
 )
 
@@ -196,3 +197,10 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+add_executable(state_publisher src/state_publisher.cpp)
+target_link_libraries(state_publisher ${catkin_LIBRARIES})
+add_dependencies(state_publisher ${catkin_EXPORTED_TARGETS})
+
+
+
