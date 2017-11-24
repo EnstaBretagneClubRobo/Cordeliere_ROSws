@@ -10,6 +10,7 @@ project(simulator)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  msgs_pkg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -196,3 +197,7 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+add_executable(pressure_meter src/pressure_meter.cpp)
+target_link_libraries(pressure_meter ${catkin_LIBRARIES})
+add_dependencies(pressure_meter ${catkin_EXPORTED_TARGETS})
