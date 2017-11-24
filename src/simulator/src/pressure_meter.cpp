@@ -6,6 +6,8 @@
 #include <time.h>
 
 
+// Simulate a depth sensor with noise.
+
 float alt_data = 0;
 
 void chatterCallback(const msgs_pkg::State_vector::ConstPtr& msg)
