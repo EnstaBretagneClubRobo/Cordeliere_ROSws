@@ -3,8 +3,7 @@
 #include "msgs_pkg/State_vector.h"
 
 
-
-
+// Publish the state vector estimation in the "state_vector" topic.
 
 int main(int argc, char **argv)
 {
