@@ -28,31 +28,31 @@ I/O:
 """
 
 import rospy
+from math import cos, radians
 from nav_msgs.msg import Odometry
+from geometry_msgs.msg import Point
+#from msgs_pkg.srv import gps_location
 
 
-def callback(data):
-	""" Callback function activated when a data is received from the GPS
-	"""
-	rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-	return data
-
-
-def listener():
+def listener(data):
 	""" Listener function which gather GPS data
 	"""
-	rospy.Subscriber("GPS", Odometry, callback)
+	x_pos = data.position.x
+	y_pos = data.position.y
+	z_pos = data.position.z
+	rospy.loginfo("<gps>: x = %f | y = %f | z = %f",x, y, z)
 
 
 def flatten_gps(x_pos, y_pos, z_pos):
 	""" Function that computes the flatten GPS position of the AUV
 	"""
-	global X_INIT, Y_INIT, EARTH_RADIUS
-	x = EARTH_RADIUS*(y_pos - Y_INIT)*cos(X_INIT)
+	global X_INIT, Y_INIT, EARTH_RADIUS, pos_GPS
+	x = EARTH_RADIUS*(y_pos - Y_INIT)*cos(radians(X_INIT))
 	y = EARTH_RADIUS*(x_pos - X_INIT)
-	# rospy.loginfo()
-	# return GpsLocationResponse
-	return (x, y)
+	pos_GPS.x = x
+	pos_GPS.y = y
+	pos_GPS.z = 0.0
+	rospy.loginfo("<gps_location>: x = %f | y = %f",x ,y)
 
 
 if __name__ == '__main__':
@@ -61,12 +61,18 @@ if __name__ == '__main__':
 
 	## ------------- INITIALIZATION -------------
 
-	rospy.init_node('gps_localization', anonymous=True)
+	rospy.init_node('gps_localization', anonymous=True, log_level=rospy.DEBUG)
 	# In ROS, nodes are uniquely named. If two nodes with the same
 	# node are launched, the previous one is kicked off. The
 	# anonymous=True flag means that rospy will choose a unique
 	# name for our 'listener' node so that multiple listeners can
 	# run simultaneously.
+
+	rate = rospy.Rate(10)  # frenquency in Hertz
+
+	# Server:
+	pub = rospy.Publisher('gps_position', Point, queue_size=10)
+
 
 	# Constants:
 	EARTH_RADIUS = 6371000
@@ -76,13 +82,21 @@ if __name__ == '__main__':
 	# while ():  # TODO
 	# 	X_INIT = # TODO
 	# 	Y_INIT = # TODO
-
+	X_INIT = 0
+	Y_INIT = 0
+	EARTH_RADIUS = 6371000
+	x_pos = 1
+	y_pos = 2
+	z_pos = 0
+	pos_GPS = Point()
+	
 
 	## ------------------ LOOP ------------------ 
 	while not rospy.is_shutdown():
 
-		try:
-			# s = rospy.Service('gps_position', GpsLocation, flatten_gps)
-			print("GPS alive !")
-		except rospy.ROSInterruptException:
-			pass
+		rospy.Subscriber("gps", Odometry, listener)
+
+		flatten_gps(x_pos, y_pos, z_pos)
+		pub.publish(pos_GPS)
+
+		rate.sleep()
