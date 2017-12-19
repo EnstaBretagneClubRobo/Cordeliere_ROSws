@@ -74,24 +74,23 @@ if __name__ == '__main__':
 	# run simultaneously.
 
 	rate = rospy.Rate(10)  # frenquency in Hertz
-
-	# Server:
-	pub = rospy.Publisher('sounder_position', Vector3, queue_size=10)
-
-
+	
 	# Constants:
 	G = 9.81
 	RHO = 1  # kg/L
-	
 
+	# Publisher:
+	pub = rospy.Publisher('sounder_position', Vector3, queue_size=10)
+	
+	# Subscribers:
+	rospy.Subscriber("pressure", Float64, listenerPressure)
+	rospy.Subscriber("sounder", Float64, listenerSounder)
+	
+	
 	## ------------------ LOOP ------------------ 
 	while not rospy.is_shutdown():
 
-		rospy.Subscriber("pressure", Float64, listenerPressure)
-
 		z = evaluateDepth(p)
-
-		rospy.Subscriber("sounder", Float64, listenerSounder)
 
 		# TODO: load the map and localize then write it into x and y
 
