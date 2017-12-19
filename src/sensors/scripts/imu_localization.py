@@ -98,12 +98,13 @@ if __name__ == '__main__':
 
     # Constants:
 
+    
+    # Subscribers:
+    listeners()
 
     # ------------------ LOOP ------------------
 
     while not rospy.is_shutdown():
-        # Finding data:
-        listeners()
 
         # Filtering:
         kalman_filter()
