@@ -90,11 +90,11 @@ if __name__ == '__main__':
 	z_pos = 0
 	pos_GPS = Vector3()
 	
+	rospy.Subscriber("gps", Odometry, listener)
 
+	
 	## ------------------ LOOP ------------------ 
 	while not rospy.is_shutdown():
-
-		rospy.Subscriber("gps", Odometry, listener)
 
 		flatten_gps(x_pos, y_pos, z_pos)
 		pub.publish(pos_GPS)
