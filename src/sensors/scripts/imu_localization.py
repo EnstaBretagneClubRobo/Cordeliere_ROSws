@@ -17,13 +17,12 @@ Summary:
 
 I/O:
     input messages : - sensor_msgs/IMU.msg
-                     -
+                     - 
     output message : msgs_pkg/Inertial_location.msg
 
 
 # TODO:
-- Sending properly data to the controller
-- Saving X_INIT and Y_INIT
+
 """
 
 
@@ -94,9 +93,9 @@ if __name__ == '__main__':
     # anonymous=True flag means that rospy will choose a unique
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
-    
+
     rate = rospy.Rate(10)  # frenquency in Hertz
-    
+
     # Constants:
 
 

@@ -30,7 +30,7 @@ I/O:
 import rospy
 from math import cos, radians
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Point
+from geometry_msgs.msg import Vector3
 #from msgs_pkg.srv import gps_location
 
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
 	rate = rospy.Rate(10)  # frenquency in Hertz
 
 	# Server:
-	pub = rospy.Publisher('gps_position', Point, queue_size=10)
+	pub = rospy.Publisher('gps_position', Vector3, queue_size=10)
 
 
 	# Constants:
@@ -88,7 +88,7 @@ if __name__ == '__main__':
 	x_pos = 1
 	y_pos = 2
 	z_pos = 0
-	pos_GPS = Point()
+	pos_GPS = Vector3()
 	
 
 	## ------------------ LOOP ------------------ 
