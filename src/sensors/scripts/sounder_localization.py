@@ -94,16 +94,16 @@ if __name__ == '__main__':
 
 		# TODO: load the map and localize then write it into x and y
 
-		pos = Vector3()
+		pos_bat_msg = Vector3()
 
 		x = 0
 		y = 0
 		z = 0
 
-		pos.x = x
-		pos.y = y
-		pos.z = z
+		pos_bat_msg.x = x
+		pos_bat_msg.y = y
+		pos_bat_msg.z = z
 
-		pub.publish(pos)
+		pub.publish(pos_bat_msg)
 
 		rate.sleep()
