@@ -80,7 +80,7 @@ if __name__ == '__main__':
 	RHO = 1  # kg/L
 
 	# Publisher:
-	pub = rospy.Publisher('sounder_position', Vector3, queue_size=10)
+	pub = rospy.Publisher('sounder_position', Vector3, queue_size=10)  # or pos_bat_msgfor the publisher
 	
 	# Subscribers:
 	rospy.Subscriber("pressure", Float64, listenerPressure)
