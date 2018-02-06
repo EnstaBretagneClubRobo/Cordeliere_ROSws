@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 
     // Publish command
     ros::Publisher command_pub = n.advertise<geometry_msgs::Twist>("command", 1000);
-    geometry_msgs::Twist command_msg
+    geometry_msgs::Twist command_msg;
 
     ros::Rate loop_rate(10);
 

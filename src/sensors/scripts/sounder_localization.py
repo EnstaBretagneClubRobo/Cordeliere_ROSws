@@ -33,7 +33,7 @@ I/O:
 
 
 import rospy
-from std_msgs.msgs import Float64
+from std_msgs.msg import Float64
 from geometry_msgs.msg import Vector3
 #from msgs_pkg.srv import gps_location
 
@@ -89,7 +89,7 @@ if __name__ == '__main__':
 	
 	## ------------------ LOOP ------------------ 
 	while not rospy.is_shutdown():
-
+		p = 1
 		z = evaluateDepth(p)
 
 		# TODO: load the map and localize then write it into x and y
