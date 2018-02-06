@@ -46,12 +46,12 @@ def listener(data):
 def flatten_gps(x_pos, y_pos, z_pos):
 	""" Function that computes the flatten GPS position of the AUV
 	"""
-	global X_INIT, Y_INIT, EARTH_RADIUS, pos_GPS
+	global X_INIT, Y_INIT, EARTH_RADIUS, pos_gps_msg
 	x = EARTH_RADIUS*(y_pos - Y_INIT)*cos(radians(X_INIT))
 	y = EARTH_RADIUS*(x_pos - X_INIT)
-	pos_GPS.x = x
-	pos_GPS.y = y
-	pos_GPS.z = 0.0
+	pos_gps_msg.x = x
+	pos_gps_msg.y = y
+	pos_gps_msg.z = 0.0
 	rospy.loginfo("<gps_location>: x = %f | y = %f",x ,y)
 
 
@@ -88,7 +88,7 @@ if __name__ == '__main__':
 	x_pos = 1
 	y_pos = 2
 	z_pos = 0
-	pos_GPS = Vector3()
+	pos_gps_msg = Vector3()
 	
 	rospy.Subscriber("gps", Odometry, listener)
 
@@ -97,6 +97,6 @@ if __name__ == '__main__':
 	while not rospy.is_shutdown():
 
 		flatten_gps(x_pos, y_pos, z_pos)
-		pub.publish(pos_GPS)
+		pub.publish(pos_gps_msg)
 
 		rate.sleep()

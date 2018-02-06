@@ -1,0 +1,19 @@
+<launch>
+	<!-- NameSpaces Groups -->
+	<group ns="system">
+		<!-- Paramètres globaux -->
+
+		<!-- Software -->
+		<node name="gps_localization" pkg="sensors" type="gps_localization.py" />
+		<node name="imu_localization" pkg="sensors" type="imu_localization.py" />
+		<node name="sounder_localization" pkg="sensors" type="sounder_localization.py" />
+		<node name="state_publisher" pkg="controller" type="state_publisher" />
+	</group>
+
+	<group ns="simulator">
+		<node name="pressure_meter" pkg="simulator" type="pressure_meter" />
+	</group>
+
+	<!-- Other packages -->
+	<node name="rqt_graph" pkg="rqt_graph" type="rqt_graph"/>
+</launch>

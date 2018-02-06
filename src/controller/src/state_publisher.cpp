@@ -3,6 +3,7 @@
 
 #include "geometry_msgs/Twist.h"
 #include "msgs_pkg/State_vector.h"
+#include "geometry_msgs/Twist.h"
 
 // Extract mission from file
 
@@ -32,11 +33,13 @@ int main(int argc, char **argv)
     // Initialization of the node
     ros::init(argc, argv, "state_vector_publisher");
     ros::NodeHandle n;
+  
     ros::Rate loop_rate(10);
 
     // Initialization of messages/services
     ros::Publisher state_pub    = n.advertise<msgs_pkg::State_vector>("state_vector", 1000);
     msgs_pkg::State_vector state_msg;
+
 
     ros::Publisher cmd_pub      = n.advertise<msgs_pkg::Command>("Command", 1000);
     msgs_pkg::State_vector command_msg;
@@ -70,7 +73,14 @@ int main(int argc, char **argv)
         state_msg.dot_state.angular.y = 1;
         state_msg.dot_state.angular.z = 1;
 
+
         state_pub.publish(state_msg);
+        // ROS_INFO("State vector sent (state publisher): z=%f", state_msg.state.linear.z);
+
+        command_pub.publish(command_msg);
+        ROS_INFO("Command vector sent (state publisher): phi=%f", command_msg.angular.x);
+        ROS_INFO("Command vector sent (state publisher): theta=%f", command_msg.angular.y);
+        ROS_INFO("Command vector sent (state publisher): psi=%f", command_msg.angular.z);
 
         /**
          * Publish new commands.

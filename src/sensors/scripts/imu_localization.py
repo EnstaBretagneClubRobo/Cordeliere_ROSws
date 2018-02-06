@@ -9,9 +9,8 @@ Summary:
     Package containing the preprocessing of the IMU location of the AUV.
     The preprocecessing contains a kalman filter.
 
-    IMU    =>    imu_localization    =>    location_estimator
-                                     <=    location_estimator
-                                     <=    controller
+    imu_simulator/IMU    =>    imu_localization    =>    location_estimator
+                                                   <=    location_estimator
 
 
 

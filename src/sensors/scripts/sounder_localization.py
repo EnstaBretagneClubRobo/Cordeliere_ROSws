@@ -33,7 +33,7 @@ I/O:
 
 
 import rospy
-from std_msgs.msgs import Float64
+from std_msgs.msg import Float64
 from geometry_msgs.msg import Vector3
 #from msgs_pkg.srv import gps_location
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 	RHO = 1  # kg/L
 
 	# Publisher:
-	pub = rospy.Publisher('sounder_position', Vector3, queue_size=10)
+	pub = rospy.Publisher('sounder_position', Vector3, queue_size=10)  # or pos_bat_msgfor the publisher
 	
 	# Subscribers:
 	rospy.Subscriber("pressure", Float64, listenerPressure)
@@ -89,21 +89,21 @@ if __name__ == '__main__':
 	
 	## ------------------ LOOP ------------------ 
 	while not rospy.is_shutdown():
-
+		p = 1
 		z = evaluateDepth(p)
 
 		# TODO: load the map and localize then write it into x and y
 
-		pos = Vector3()
+		pos_bat_msg = Vector3()
 
 		x = 0
 		y = 0
 		z = 0
 
-		pos.x = x
-		pos.y = y
-		pos.z = z
+		pos_bat_msg.x = x
+		pos_bat_msg.y = y
+		pos_bat_msg.z = z
 
-		pub.publish(pos)
+		pub.publish(pos_bat_msg)
 
 		rate.sleep()
