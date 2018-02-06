@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     ros::Publisher cmd_pub      = n.advertise<msgs_pkg::Command>("Command", 1000);
     msgs_pkg::State_vector command_msg;
 
-    ros::Subscriber none_sub = n.subscribe("none", 1000, chatCallback);
+    ros::Subscriber none_sub    = n.subscribe("none", 1000, chatCallback);
 
     while (ros::ok())
       {
@@ -63,12 +63,12 @@ int main(int argc, char **argv)
         state_msg.state.angular.y   = 1;
         state_msg.state.angular.z   = 1;
 
-        state_msg.p_state.linear.x  = 1;
-        state_msg.p_state.linear.y  = 1;
-        state_msg.p_state.linear.z  = 1;
-        state_msg.p_state.angular.x = 1;
-        state_msg.p_state.angular.y = 1;
-        state_msg.p_state.angular.z = 1;
+        state_msg.dot_state.linear.x  = 1;
+        state_msg.dot_state.linear.y  = 1;
+        state_msg.dot_state.linear.z  = 1;
+        state_msg.dot_state.angular.x = 1;
+        state_msg.dot_state.angular.y = 1;
+        state_msg.dot_state.angular.z = 1;
 
         state_pub.publish(state_msg);
 
