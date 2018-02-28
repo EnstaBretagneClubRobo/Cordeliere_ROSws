@@ -20,11 +20,10 @@ void chatterCallback(const msgs_pkg::State_vector::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "pressure_meter_publisher");
-    ros::init(argc, argv, "pressure_meter_listener");
+    ros::init(argc, argv, "pressure_meter_simulator");
     ros::NodeHandle n;
 
-    ros::Publisher chatter_pub = n.advertise<std_msgs::Float64>("pressure_meter_chatter", 1000);
+    ros::Publisher chatter_pub = n.advertise<std_msgs::Float64>("pressure_meter_publisher", 1000);
     ros::Subscriber sub = n.subscribe("state_vector", 1000, chatterCallback);
 
     ros::Rate loop_rate(10);

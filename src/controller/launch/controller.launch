@@ -1,0 +1,6 @@
+<launch>
+	<!-- Nodes -->
+	<node name="location_estimator" pkg="controller" type="location_estimator"/>
+
+	<node name="regulator" pkg="controller" type="regulator"/>
+</launch>

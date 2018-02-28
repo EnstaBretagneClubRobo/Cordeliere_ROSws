@@ -1,0 +1,16 @@
+<launch>
+	<!-- Nodes -->
+	<node name="pressure_meter_simulator" pkg="simulator" type="pressure_meter_simulator"/>
+
+	<node name="sounder_simulator" pkg="simulator" type="sounder_simulator"/>
+
+	<node name="gps_simulator" pkg="simulator" type="gps_simulator"/>
+
+	<node name="imu_simulator" pkg="simulator" type="imu_simulator"/>
+
+	<node name="location_simulator" pkg="simulator" type="location_simulator"/>
+
+	<node name="magnetometer_simulator" pkg="simulator" type="magnetometer_simulator"/>
+
+	<node name="actuators_simulator" pkg="simulator" type="actuators_simulator"/>
+</launch>

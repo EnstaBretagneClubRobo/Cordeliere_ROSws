@@ -11,6 +11,9 @@
 	</group>
 
 	<group ns="simulator">
+		<!-- Paramètres globaux -->
+
+		<!-- Software -->
 		<node name="pressure_meter" pkg="simulator" type="pressure_meter" />
 	</group>
 
