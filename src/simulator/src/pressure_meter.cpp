@@ -29,13 +29,14 @@ int main(int argc, char **argv)
 
     ros::Rate loop_rate(10);
 
+    std_msgs::Float64 alt_msg;
+
     while (ros::ok())
       {
         /**
          * Publish depth estimation using the real position and adding a noise (very simple).
          */
-        std_msgs::Float64 alt_msg;
-
+        
         srand((unsigned int)time(NULL));
 
         float a = 0.3;
