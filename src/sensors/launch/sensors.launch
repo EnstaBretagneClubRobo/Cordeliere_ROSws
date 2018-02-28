@@ -1,0 +1,9 @@
+<launch>
+	<!-- Nodes -->
+	<node name="gps_localization" pkg="sensors" type="gps_localization.py"/>
+
+	<node name="imu_localization" pkg="sensors" type="imu_localization.py"/>
+
+	<node name="sounder_localization" pkg="sensors" type="sounder_localization.py"/>
+
+</launch>
