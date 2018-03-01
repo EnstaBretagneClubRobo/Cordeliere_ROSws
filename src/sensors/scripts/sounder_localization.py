@@ -35,6 +35,7 @@ I/O:
 import rospy
 from std_msgs.msg import Float64
 from geometry_msgs.msg import Vector3
+import pyibex
 #from msgs_pkg.srv import gps_location
 
 
@@ -51,6 +52,27 @@ def listenerPressure(data):
 	p = data
 	rospy.loginfo("<Pressure>: pressure = %f", p)
 
+def listenerStateVector(data):
+	""" Listener function which gather the state vector from the controller
+	"""
+	x = data.state.linear.x
+    y = data.state.linear.y
+    z = data.state.linear.z
+    phi = data.state.angular.x
+    theta = data.state.angular.y
+    psi = data.state.angular.z
+
+    dot_x = data.dot_state.linear.x
+    dot_y = data.dot_state.linear.y
+    dot_z = data.dot_state.linear.z
+    dot_phi = data.dot_state.angular.x
+    dot_theta = data.dot_state.angular.y
+    dot_psi = data.dot_state.angular.z
+
+    # Put X in tuple so we have no python lists problems
+    X = (x,y,z,phi,theta,psi,dot_x,dot_y,dot_z,dot_phi,dot_theta,dot_psi)
+    rospy.loginfo("State Vector acquired")
+
 
 def evaluateDepth(p):
 	""" Function that computes the depth of the AUV with the pressure
@@ -58,6 +80,20 @@ def evaluateDepth(p):
 	global RHO, G
 	z = 0  # TODO
 	rospy.loginfo("<Depth>: z = %f", z)
+
+
+def predict_box(altitude, X, delta):
+	""" Predict next box using previous speed and head
+	    Parameters:
+	    altitude -> distance to seabed, from the sounder sensor
+	    X -> state_vector, from the state_publisher
+	    delta -> uncertainties
+	"""
+	# TODO: change the way of integrating uncertainties, maybe even in the dead reckoning, 
+	# or having the whole controller working with intervals
+	x,y,z,phi,theta,psi,dot_x,dot_y,dot_z,dot_phi,dot_theta,dot_psi = X
+	estimated_bathy_value = altitude + z
+	return 
 
 
 if __name__ == '__main__':
@@ -85,6 +121,7 @@ if __name__ == '__main__':
 	# Subscribers:
 	rospy.Subscriber("pressure", Float64, listenerPressure)
 	rospy.Subscriber("sounder", Float64, listenerSounder)
+	rospy.Subscriber("state_vector", msgs_pkg::State_vector, listenerStateVector)
 	
 	
 	## ------------------ LOOP ------------------ 
