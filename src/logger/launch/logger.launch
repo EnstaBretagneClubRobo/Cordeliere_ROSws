@@ -1,0 +1,6 @@
+<launch>
+	<!-- Nodes -->
+	<node name="logger" pkg="sensors" type="logger.py"/>
+
+
+</launch>

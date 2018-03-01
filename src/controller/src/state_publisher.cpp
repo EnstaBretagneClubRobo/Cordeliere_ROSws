@@ -1,5 +1,4 @@
 #include "ros/ros.h"
-#include <json.h>
 
 #include "geometry_msgs/Twist.h"
 #include "msgs_pkg/State_vector.h"
@@ -7,9 +6,8 @@
 
 // Extract mission from file
 
-void extractMission()
-{
-    ROS_INFO("Still to implement\n")
+void extractMission() {
+    ROS_INFO("Still to implement\n");
 }
 
 // Compute the commands in order to follow waypoints.

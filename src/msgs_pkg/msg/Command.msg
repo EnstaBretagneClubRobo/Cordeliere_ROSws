@@ -1,2 +1,3 @@
-msgs_pkg/Control vertical
-msgs_pkg/Control horizontal
+float64 throttle
+float64 balanceVertical
+float64 balanceHorizontal
