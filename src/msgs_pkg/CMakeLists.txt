@@ -57,6 +57,8 @@ find_package(catkin REQUIRED COMPONENTS
    Control.msg
    Inertial_location.msg
    State_vector.msg
+   Interval.msg
+   3DBox.msg
  )
 
 ## Generate services in the 'srv' folder
