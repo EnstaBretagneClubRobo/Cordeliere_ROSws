@@ -3,7 +3,7 @@
 # python version 2.7
 
 """
-    --- Logger ---
+    --- Actuators_simulator ---
 
 Summary:
 
@@ -14,21 +14,16 @@ I/O:
 """
 
 import rospy
-from msgs_pkg.msg import State_vector
+from geometry.msg import Twist
 
 
-def callbackState(data):
+def callbackCommand(data):
     """ Callback function activated when a data is received from the IMU
     """
-    global x, y, z, roll, pitch, yaw
-    x = data.state.linear.x
-    y = data.state.linear.y
-    z = data.state.linear.z
-
-    roll = data.state.angular.x
-    pitch = data.state.angular.y
-    yaw = data.state.angular.z
-
+    global cmd
+    # TODO: change this to have something in relation with the physical configuration of the AUV
+    cmd.linear = data.linear
+    cmd.angular = cmd.angular
 
 
 if __name__ == '__main__':
@@ -37,7 +32,7 @@ if __name__ == '__main__':
 
     # ------------- INITIALIZATION -------------
 
-    rospy.init_node('logger', anonymous=True)
+    rospy.init_node('actuators_simulator', anonymous=True)
     # In ROS, nodes are uniquely named. If two nodes with the same
     # node are launched, the previous one is kicked off. The
     # anonymous=True flag means that rospy will choose a unique
@@ -47,21 +42,16 @@ if __name__ == '__main__':
     rate = rospy.Rate(10)  # frenquency in Hertz
 
     # Initialization:
-    x = 0
-    y = 0
-    z = 0
-    roll = 0
-    pitch = 0
-    yaw = 0
+    cmd = Twist()
 
     # Subscribers:
-    rospy.Subscriber("state_msg", State_vector, callbackState)
-
+    rospy.Subscriber("command_msg", Twist, callbackCommand)
+    pub = rospy.Publisher('actuators_command', Twist, queue_size=1)
     # ------------------ LOOP ------------------
 
     while not rospy.is_shutdown():
 
-        # Sending data to Unity:
-        # TODO
+        # Sending data:
+        pub.publish(cmd)
 
         rate.sleep()
